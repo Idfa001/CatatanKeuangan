@@ -1,0 +1,41 @@
+table, td {
+    border: 1px solid rgb(223, 223, 223);
+    border-collapse: collapse;
+    overflow-x: auto;
+  }
+  
+  table{
+      overflow-x: auto;
+      width: 100%;
+      text-align: center;
+      font-size: small;
+  }
+  
+  #td1{
+      background-color: rgb(34, 179, 247);
+  }
+  
+  th, td {
+      padding: px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  
+  th {
+    background-color: rgb(34, 179, 247);
+    color: white;
+  }
+  
+  .hide {
+    display: none;
+  }
+      
+  .hapus:hover + .hide {
+    display: block;
+    color: red;
+  }
+  
+  
+  .table{
+    overflow-x: auto;
+  }
