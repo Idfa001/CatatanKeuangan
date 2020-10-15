@@ -1,2 +1,1 @@
-# praxis-academy
-My repository on github
+Sebuah aplikasi keuangan 
