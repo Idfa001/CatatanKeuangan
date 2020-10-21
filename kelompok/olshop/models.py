@@ -2,6 +2,23 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
 
+USAHA_CHOICES = (
+
+    ("Dagang", "Dagang"), 
+    ("Jasa", "Jasa"), 
+
+)
+
+
+class usaha(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='usaha')
+    nama_usaha = models.CharField(max_length=50)
+    alamat_usaha = models.CharField(max_length=100)
+    jenis_usaha = models.CharField(max_length = 20, 
+        choices = USAHA_CHOICES, 
+        default = '1')
+
+
 class barangm(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='barang')
     barang = models.CharField(max_length=200)
@@ -12,10 +29,11 @@ class barangm(models.Model):
         return self.barang
  
 class saldoawalm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='saldoawal')
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='sa')
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
 class SaldoAwal(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='saldoawal')
     saldo_awal = models.IntegerField(default=0)
 
 class penjualan1m(models.Model):
@@ -45,6 +63,7 @@ class penjualan1m(models.Model):
 
     def saldo(self):
         return self.piutang() - self.terima
+
 
 class utangm(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='utang')

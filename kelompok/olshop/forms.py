@@ -2,7 +2,14 @@ from django.forms import ModelForm
 from bootstrap_datepicker_plus import DatePickerInput
 from . import models
 
- 
+
+
+
+class usahaf(ModelForm):
+    class Meta:
+        model = models.usaha
+        exclude =['owner']
+
 class penjualan1f(ModelForm):
     class Meta:
         model = models.penjualan1m

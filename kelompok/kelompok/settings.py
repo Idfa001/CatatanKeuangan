@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'kelompok.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tugas1',
+        'NAME': 'ck',
         'USER': 'steiner',
         'PASSWORD': 'madscientist',
         'HOST': 'localhost',

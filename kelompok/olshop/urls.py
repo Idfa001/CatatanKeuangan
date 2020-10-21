@@ -19,13 +19,15 @@ from django.shortcuts import render
 from . import views
 
 urlpatterns = [
-    path('', views.halamandepan),
+    path('', views.usaha),
+    path('haldepan/', views.halamandepan),
     path('penjualan_tunai/', views.penjualan_tunai),
     path('utang/', views.utang),
     path('piutang/', views.piutang),
     path('pembelian_tunai/', views.pembelian_tunai),
     path('pembayaran_utang/', views.pembayaran_utang),
     path('barang/', views.barang),
+    path('usaha/', views.usaha),
     path('lr/', views.lr),
     path('admin/', admin.site.urls),
 
@@ -38,6 +40,7 @@ urlpatterns = [
     path('pem_kreditv/', views.pem_kreditv),
     path('pem_lainv/', views.pem_lainv),
     path('barangv/', views.barangv),
+    path('usahav/', views.usahav),
 
     #edit
     path('<id>/edit_p_tunai/',views.edit_p_tunai),
@@ -74,6 +77,7 @@ urlpatterns = [
     path('<id>/hapus9/',views.hapus9),
     path('<id>/hapus10/',views.hapus10),
     path('<id>/hapus11/',views.hapus11),
+    path('<id>/hapus12/',views.hapus12),
     # path('<id>/edit_pembayaran_lain/',views.edit_pembayaran_lain),
     # path('<id>/edit_barang/',views.edit_barang),
 ]
