@@ -45,26 +45,25 @@ urlpatterns = [
 
 
     #edit
-    path('<id>/edit_p_tunai/',views.edit_p_tunai),
-    path('<id>/edit_p_kredit/',views.edit_p_kredit),
-    path('<id>/edit_p_kredit_terima/',views.edit_p_kredit_terima), #terima pembayaran
-    path('<id>/edit_p_kredit_terima1/',views.edit_p_kredit_terima1), #terima pembayaran1
-    path('<id>/edit_pend_lain_terima/',views.edit_pend_lain_terima), #terima pembayaran2
-
-    path('<id>/edit_p_lain/',views.edit_p_lain),
-    path('<id>/edit_utang/',views.edit_utang),
-    path('<id>/edit_pend_lain/',views.edit_pend_lain),
-    path('<id>/edit_pem_tunai/',views.edit_pem_tunai),
-    path('<id>/edit_pem_kredit/',views.edit_pem_kredit),
-    path('<id>/edit_pem_lain/',views.edit_pem_lain),
-    path('<id>/edit_pembayaran_biaya/',views.edit_pembayaran_biaya),
-    path('<id>/edit_pembayaran_lain/',views.edit_pembayaran_lain),
-    path('<id>/edit_barang/',views.edit_barang),
-    path('<id>/edit_butang/',views.edit_butang),
-    path('<id>/edit_butang1/',views.edit_butang1),
-    path('<id>/edit_butang2/',views.edit_butang2),
-    path('<id>/edit_butang3/',views.edit_butang3),
-    path('<id>/edit_saldoawal/',views.edit_saldoawal),
+    path('usaha/<id>/edit_p_tunai/<id_p>',views.edit_p_tunai),
+    path('usaha/<id>/edit_p_kredit/<id_p>',views.edit_p_kredit),
+    path('usaha/<id>/edit_p_kredit_terima/<id_p>',views.edit_p_kredit_terima), #terima pembayaran
+    path('usaha/<id>/edit_p_kredit_terima1/<id_p>',views.edit_p_kredit_terima1), #terima pembayaran1
+    path('usaha/<id>/edit_pend_lain_terima/<id_p>',views.edit_pend_lain_terima), #terima pembayaran2
+    path('usaha/<id>/edit_p_lain/<id_p>',views.edit_p_lain),
+    path('usaha/<id>/edit_utang/<id_p>',views.edit_utang),
+    path('usaha/<id>/edit_pend_lain/<id_p>',views.edit_pend_lain),
+    path('usaha/<id>/edit_pem_tunai/<id_p>',views.edit_pem_tunai),
+    path('usaha/<id>/edit_pem_kredit/<id_p>',views.edit_pem_kredit),
+    path('usaha/<id>/edit_pem_lain/<id_p>',views.edit_pem_lain),
+    path('usaha/<id>/edit_pembayaran_biaya/<id_p>',views.edit_pembayaran_biaya),
+    path('usaha/<id>/edit_pembayaran_lain/<id_p>',views.edit_pembayaran_lain),
+    path('usaha/<id>/edit_barang/<id_p>',views.edit_barang),
+    path('usaha/<id>/edit_butang/<id_p>',views.edit_butang),
+    path('usaha/<id>/edit_butang1/<id_p>',views.edit_butang1),
+    path('usaha/<id>/edit_butang2/<id_p>',views.edit_butang2),
+    path('usaha/<id>/edit_butang3/<id_p>',views.edit_butang3),
+    path('usaha/<id>/edit_saldoawal/<id_p>',views.edit_saldoawal),
 
 
     #Hapus
