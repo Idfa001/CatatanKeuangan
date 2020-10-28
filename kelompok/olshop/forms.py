@@ -13,23 +13,23 @@ class usahaf(ModelForm):
 class penjualan1f(ModelForm):
     class Meta:
         model = models.penjualan1m
-        exclude = [ 'saldo_awal', 'terima' , 'owner' ]
+        exclude = [ 'saldo_awal', 'terima' , 'usaha' ]
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        usaha = kwargs.pop('usaha', None)
         super(penjualan1f, self).__init__(*args, **kwargs)
-        self.fields['barang'].queryset = models.barangm.objects.filter(owner=user)
+        self.fields['barang'].queryset = models.barangm.objects.filter(usaha=usaha)
 
 class saldoawalf(ModelForm):
     class Meta:
         model = models.saldoawalm
-        exclude = [ 'owner' ] 
+        exclude = [ 'usaha' ] 
 
 
 class utangf(ModelForm):
     class Meta:
         model = models.utangm
-        exclude = ['dibayar', 'owner']
+        exclude = ['dibayar', 'usaha']
         widgets = {
             'jatuh_tempo': DatePickerInput(format='%d-%m-%Y'),
         }
@@ -37,26 +37,21 @@ class utangf(ModelForm):
 class pend_lainf(ModelForm):
     class Meta:
         model = models.pend_lainm
-        exclude = [ 'terima', 'owner' ]
+        exclude = [ 'terima', 'usaha' ]
 
 class pem_tunaif(ModelForm):
     class Meta:
         model = models.pem_tunaim
-        exclude = [ 'dibayar', 'owner' ]
+        exclude = [ 'dibayar', 'usaha' ]
 
 class pem_kreditf(ModelForm):
     class Meta:
         model = models.pem_kreditm
-        exclude = [ 'dibayar1', 'owner' ]
-
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
-        super(pem_kreditf, self).__init__(*args, **kwargs)
-        self.fields['barang'].queryset = models.barangm.objects.filter(owner=user)
+        exclude = [ 'dibayar1', 'usaha' ]
 
 
 class barangf(ModelForm):
     class Meta:
         model = models.barangm
-        exclude = ['owner']
+        exclude = ['usaha']
 

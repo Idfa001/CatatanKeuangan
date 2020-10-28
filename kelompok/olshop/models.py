@@ -2,15 +2,16 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
 
-USAHA_CHOICES = (
+
+
+
+class usaha(models.Model):
+    USAHA_CHOICES = (
 
     ("Dagang", "Dagang"), 
     ("Jasa", "Jasa"), 
 
 )
-
-
-class usaha(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='usaha')
     nama_usaha = models.CharField(max_length=50)
     alamat_usaha = models.CharField(max_length=100)
@@ -20,7 +21,7 @@ class usaha(models.Model):
 
 
 class barangm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='barang')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='barang')
     barang = models.CharField(max_length=200)
     harga_beli = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     harga_jual = models.DecimalField(default=0, max_digits=10, decimal_places=0)
@@ -29,15 +30,15 @@ class barangm(models.Model):
         return self.barang
  
 class saldoawalm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='sa')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='sa')
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
 class SaldoAwal(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='saldoawal')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='saldoawal')
     saldo_awal = models.IntegerField(default=0)
 
 class penjualan1m(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='penjualan')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='penjualan')
     tanggal = models.DateField(auto_now_add=True)
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
@@ -66,7 +67,7 @@ class penjualan1m(models.Model):
 
 
 class utangm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='utang')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='utang')
     tanggal = models.DateField(auto_now_add=True)
     catatan = models.CharField(max_length=200)
     jumlah = models.DecimalField(max_digits=10, decimal_places=0)
@@ -95,7 +96,7 @@ class utangm(models.Model):
         return self.duda().days
 
 class pend_lainm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='pendlain')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pendlain')
     tanggal = models.DateField(auto_now_add=True)
     keterangan = models.CharField(max_length=200)
     pendapatan = models.DecimalField(max_digits=10, decimal_places=0)
@@ -123,7 +124,7 @@ class pend_lainm(models.Model):
 
 
 class pem_tunaim(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='pemtunai')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pemtunai')
     tanggal = models.DateField(auto_now_add=True)
     keterangan = models.CharField(max_length=200)
     pembelian = models.DecimalField(default=0, max_digits=10, decimal_places=0)
@@ -156,9 +157,9 @@ class pem_tunaim(models.Model):
         return self.saldo()
 
 class pem_kreditm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='pemkredit')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pemkredit')
     tanggal = models.DateField(auto_now_add=True)
-    barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
+    barang = models.ForeignKey(barangm, on_delete = models.CASCADE)
     kuantitas = models.IntegerField(default=0)
     kas_keluar = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     dibayar1 = models.DecimalField(default=0, max_digits=10, decimal_places=0)
@@ -194,7 +195,7 @@ class pem_kreditm(models.Model):
         return self.saldo1()
         
 class pem_lainm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='pemlain')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pemlain')
     tanggal = models.DateField(auto_now_add=True)
     keterangan = models.CharField(max_length=200)
     dibayar = models.DecimalField(default=0, max_digits=10, decimal_places=0)
@@ -216,7 +217,7 @@ class pem_lainm(models.Model):
 
 
 class pembayaran_biayam(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='pembiaya')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pembiaya')
     tanggal = models.DateField(auto_now_add=True)
     keterangan = models.CharField(max_length=200)
     dibayar = models.DecimalField(max_digits=10, decimal_places=0)
@@ -229,7 +230,7 @@ class pembayaran_biayam(models.Model):
         return self.dibayar
 
 class pembayaran_lainm(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='pembayaranlain')
+    usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pembayaranlain')
     tanggal = models.DateField(auto_now_add=True)
     keterangan = models.CharField(max_length=200)
     dibayar = models.DecimalField(max_digits=10, decimal_places=0)

@@ -45,7 +45,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="/usaha/haldepan/{{id}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -61,9 +61,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/penjualan_tunai">Penjualan</a>
-            <a class="collapse-item" href="/piutang">Piutang</a>
-            <a class="collapse-item" href="/utang">Utang</a>
+            <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Piutang</a>
+            <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
       </li>
@@ -76,8 +76,8 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/pembelian_tunai">Pembelian</a>
-            <a class="collapse-item" href="/pembayaran_utang">Pembayaran Utang</a>
+            <a class="collapse-item" href="/usaha/pembelian_tunai/{{id}}">Pembelian</a>
+            <a class="collapse-item" href="/usaha/pembayaran_utang/{{id}}">Pembayaran Utang</a>
           </div>
         </div>
       </li>
@@ -89,12 +89,22 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/lr">Arus Kas</a>
+            <a class="collapse-item" href="/usaha/lr/{{id}}">Arus Kas</a>
             <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
-            <a class="collapse-item" href="/barang">Daftar Barang Dijual</a>
-            <a class="collapse-item" href="utilities-other.html">Satuan Unit</a>
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
           </div>
         </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusaha" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="far fa-handshake"></i>
+          <span>Usaha Saya</span>
+        </a>
+          <div id="collapseusaha" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="/usaha">Usaha</a>
+            </div>
+          </div>
       </li>
       <!-- Divider -->
 
@@ -341,7 +351,7 @@
                                 <td class="center">{{d.tanggal2}}</td>
                                 
                                 <td>
-                                    <a class="btn-floating btn-small waves-effect waves-light red right" href="/{{d.id}}/hapus2"><i class="material-icons">delete_forever</i></a>
+                                    <a class="btn-floating btn-small waves-effect waves-light red right" href="/usaha/{{id}}/hapus2/{{d.id}}"><i class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                     {% endfor %}
