@@ -192,7 +192,11 @@ def halamandepan(req, id):
       jum_pend3 += u.jum_pend3()
 
     saldo_total1 = piutang1 + jum_pend3
-    # persenpiutang = saldo_total2 / saldo_total1 * 100
+
+    persenpiutangxx = 0
+    if not(saldo_total1 == 0):
+        persenpiutangxx = saldo_total2 / saldo_total1 * 100
+    persenpiutang = int(persenpiutangxx)
 
     # persenutang
     utang = models.utangm.objects.all()
@@ -238,9 +242,34 @@ def halamandepan(req, id):
     for r in pem1:
         bayar33 += r.dibayar
 
-    jumlahbayar = bayar11 + bayar22 + bayar33    
+    jumlahbayar = bayar11 + bayar22 + bayar33   
 
-    # persenutang = jumlahbayar / jumlah_utang * 100
+    persenutangcr = 0
+    if not(jumlah_utang == 0):
+        persenutangcr = jumlahbayar / jumlah_utang * 100 
+    persenutang = int(persenutangcr)
+
+
+    a = kas_masuk1 + kas_masuk2 - kas_keluar1 - kas_keluar2
+    b = kas_masuk4 - kas_keluar3
+
+    rasioxx = 0
+    if not(b == 0):
+        rasioxx = (a + kas_masuk3) / b *100
+    rasio = int(rasioxx)
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+    saldo1 = 0
+    for p in saldo_awal1:
+        saldo1 += p.saldo_awal
+
+    c = kas_masuk1 + kas_masuk2 + kas_masuk3
+    d = kas_keluar1 + kas_keluar2
+    e = kas_masuk4 - kas_keluar3
+
+    maks_keluar = c - d - e
 
 
 
@@ -258,9 +287,11 @@ def halamandepan(req, id):
     'jumlah2': jumlah2,
     'total': total,
     'saldo_total1': saldo_total1,
-    # 'persenpiutang': persenpiutang,
-    # 'persenutang': persenutang,
+    'persenpiutang': persenpiutang,
+    'persenutang': persenutang,
     'saldo_akhir': saldo_akhir,
+    'rasio': rasio,
+    'maks_keluar': maks_keluar,
     })
 
 def penjualan_tunai(req, id):  
@@ -996,3 +1027,629 @@ def hapus11(req, id, id_p):
 def hapus12(req, id):
     models.usaha.objects.filter(pk=id).delete()
     return redirect('/usaha')
+
+
+# wia
+def wia(req, id):
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(usaha=id)
+    pen2 = models.pend_lainm.objects.filter(usaha=id)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1()
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend()
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(usaha=id)
+    penjualan2 = models.pend_lainm.objects.filter(usaha=id)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = total_terima1 + total_terima2
+
+    utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang()
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(usaha=id)
+    pem1 = models.pem_kreditm.objects.filter(usaha=id)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1()
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2()
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = bayar11 + bayar22 + bayar33
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+       
+    return render(req, 'keperluan/index17.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    })
+
+def wia10(req, id):
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(usaha=id)
+    pen2 = models.pend_lainm.objects.filter(usaha=id)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1() + (q.kas_masuk1() * 10 / 100)
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend() + (q.jum_pend() * 10 / 100)
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(usaha=id)
+    penjualan2 = models.pend_lainm.objects.filter(usaha=id)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima 
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = ((total_terima1 + total_terima2) * 10 / 100) + (total_terima1 + total_terima2)
+
+    utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang() + (i.jum_utang() * 10 / 100)
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(usaha=id)
+    pem1 = models.pem_kreditm.objects.filter(usaha=id)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1() + (i.kas_keluar1() * 10 / 100)
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2() + (i.kas_keluar2() * 10 / 100)
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = (bayar11 + bayar22 + bayar33) + ((bayar11 + bayar22 + bayar33) * 10 / 100)
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+       
+    return render(req, 'wia/wia10.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    })
+
+def wia25(req, id):
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(usaha=id)
+    pen2 = models.pend_lainm.objects.filter(usaha=id)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1() + (q.kas_masuk1() * 25 / 100)
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend() + (q.jum_pend() * 25 / 100)
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(usaha=id)
+    penjualan2 = models.pend_lainm.objects.filter(usaha=id)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima 
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = ((total_terima1 + total_terima2) * 25 / 100) + (total_terima1 + total_terima2)
+
+    utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang() + (i.jum_utang() * 25 / 100)
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(usaha=id)
+    pem1 = models.pem_kreditm.objects.filter(usaha=id)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1() + (i.kas_keluar1() * 25 / 100)
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2() + (i.kas_keluar2() * 25 / 100)
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = (bayar11 + bayar22 + bayar33) + ((bayar11 + bayar22 + bayar33) * 25 / 100)
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+       
+    return render(req, 'wia/wia25.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    })
+
+def wia50(req, id):
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(usaha=id)
+    pen2 = models.pend_lainm.objects.filter(usaha=id)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1() + (q.kas_masuk1() * 50 / 100)
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend() + (q.jum_pend() * 50 / 100)
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(usaha=id)
+    penjualan2 = models.pend_lainm.objects.filter(usaha=id)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima 
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = ((total_terima1 + total_terima2) * 50 / 100) + (total_terima1 + total_terima2)
+
+    utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang() + (i.jum_utang() * 50 / 100)
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(usaha=id)
+    pem1 = models.pem_kreditm.objects.filter(usaha=id)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1() + (i.kas_keluar1() * 50 / 100)
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2() + (i.kas_keluar2() * 50 / 100)
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = (bayar11 + bayar22 + bayar33) + ((bayar11 + bayar22 + bayar33) * 50 / 100)
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+       
+    return render(req, 'wia/wia50.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    })
+
+def wia75(req, id):
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(usaha=id)
+    pen2 = models.pend_lainm.objects.filter(usaha=id)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1() + (q.kas_masuk1() * 75 / 100)
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend() + (q.jum_pend() * 75 / 100)
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(usaha=id)
+    penjualan2 = models.pend_lainm.objects.filter(usaha=id)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima 
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = ((total_terima1 + total_terima2) * 75 / 100) + (total_terima1 + total_terima2)
+
+    utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang() + (i.jum_utang() * 75 / 100)
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(usaha=id)
+    pem1 = models.pem_kreditm.objects.filter(usaha=id)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1() + (i.kas_keluar1() * 75 / 100)
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2() + (i.kas_keluar2() * 75 / 100)
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = (bayar11 + bayar22 + bayar33) + ((bayar11 + bayar22 + bayar33) * 75 / 100)
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+       
+    return render(req, 'wia/wia75.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    })
+
+def wia100(req, id):
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(usaha=id)
+    pen2 = models.pend_lainm.objects.filter(usaha=id)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1() + (q.kas_masuk1() * 100 / 100)
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend() + (q.jum_pend() * 100 / 100)
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(usaha=id)
+    penjualan2 = models.pend_lainm.objects.filter(usaha=id)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima 
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = ((total_terima1 + total_terima2) * 100 / 100) + (total_terima1 + total_terima2)
+
+    utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang() + (i.jum_utang() * 100 / 100)
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(usaha=id)
+    pem1 = models.pem_kreditm.objects.filter(usaha=id)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1() + (i.kas_keluar1() * 100 / 100)
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2() + (i.kas_keluar2() * 100 / 100)
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = (bayar11 + bayar22 + bayar33) + ((bayar11 + bayar22 + bayar33) * 100 / 100)
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
+
+       
+    return render(req, 'wia/wia100.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    })

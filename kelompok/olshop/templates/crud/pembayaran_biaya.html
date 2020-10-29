@@ -22,12 +22,15 @@
   <div class="container">
     <h1>Customer</h1><br>
 
-    <form action="" method="POST" class="mt-3">
-        {% load crispy_forms_tags %}
-        {% csrf_token %}
-        
-        {{ form|crispy }}
-        <br>
-        <button class="btn btn-primary btn-xs">Add Customer</button>
+      <form action="" method="POST" class="mt-3">
+         {% load crispy_forms_tags %}
+         {% csrf_token %}
+         
+         {{ form|crispy }}
+         <br>
+         <button class="btn btn-primary btn-xs">Add Customer</button>
 
-    </form>
+      </form>
+
+   </body>
+   </html>

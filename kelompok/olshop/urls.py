@@ -31,6 +31,12 @@ urlpatterns = [
     path('usaha/lr/<id>/', views.lr),
     path('admin/', admin.site.urls),
     path('usaha/haldepan/<id>/', views.halamandepan),
+    path('usaha/wia/<id>/', views.wia),
+    path('usaha/wia10/<id>/', views.wia10),
+    path('usaha/wia25/<id>/', views.wia25),
+    path('usaha/wia50/<id>/', views.wia50),
+    path('usaha/wia75/<id>/', views.wia75),
+    path('usaha/wia100/<id>/', views.wia100),
 
     #crud
     path('usaha/penjualan1/<id>/', views.penjualan1v),

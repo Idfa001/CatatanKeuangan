@@ -44,7 +44,7 @@ class penjualan1m(models.Model):
     kuantitas = models.IntegerField(default=0)
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     kas_masuk = models.DecimalField(default=0, max_digits=10, decimal_places=0)
-    terima = models.IntegerField(default=0)
+    terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
      
     def tanggal1(self):
