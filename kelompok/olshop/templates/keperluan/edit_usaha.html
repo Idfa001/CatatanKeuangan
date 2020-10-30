@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Materialize Example</title>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css">
+    <link rel = "stylesheet"
+       href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet"
+       href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+       src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script> 
+</head>
+<body>
+
+  <div class="container">
+    <h1>Customer</h1><br>
+
+    <form action="" method="POST" class="mt-3">
+        {% csrf_token %}
+        <table class="table mt-3">
+              <tr>
+                  <td>Nama Usaha</td>
+                  <td>
+                  <input type="text" name="nama_usaha" value="{{data.nama_usaha}}" class="form-control">
+                  </td>
+              </tr>
+              <tr>
+                <td>Alamat Usaha</td>
+                <td>
+                <input type="text" name="alamat_usaha" value="{{data.alamat_usaha}}" class="form-control">
+                </td>
+            </tr>
+              <tr>
+                <td>Jenis Usaha</td>
+                <td>
+                <input type="text" name="jenis_usaha" value="{{data.jenis_usaha}}" class="form-control">
+                </td>
+            </tr>
+            </table>
+        <br>
+        <button class="btn btn-primary btn-xs">Update</button>
+
+    </form>

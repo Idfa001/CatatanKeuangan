@@ -271,7 +271,12 @@ def halamandepan(req, id):
 
     maks_keluar = c - d - e
 
+    #usaha
+    ush = models.usaha.objects.filter(pk=id).first()
+    ush1 = models.usaha.objects.filter(owner=req.user)
+    
 
+    print (usaha)
 
     return render(req, 'hal1/index1.html', {
     'id': id,
@@ -292,6 +297,8 @@ def halamandepan(req, id):
     'saldo_akhir': saldo_akhir,
     'rasio': rasio,
     'maks_keluar': maks_keluar,
+    'data': ush1,
+    'usaha': ush,
     })
 
 def penjualan_tunai(req, id):  
@@ -715,10 +722,10 @@ def pem_tunaiv(req, id):
 
 def pem_kreditv(req, id):
     usaha = models.usaha.objects.filter(pk=id).first()
-    task = models.barangm.objects.filter(usaha=id)
-    form_input = forms.pem_kreditf()
+    task = models.pem_kreditm.objects.filter(usaha=id)
+    form_input = forms.pem_kreditf(usaha=id)
     if req.POST:
-        form_input = forms.pem_kreditf(req.POST)
+        form_input = forms.pem_kreditf(req.POST, usaha=id)
         if form_input.is_valid():
             form_input.instance.usaha = usaha
             form_input.save()
@@ -732,7 +739,7 @@ def pem_kreditv(req, id):
 def pem_lainv(req, id):
     usaha = models.usaha.objects.filter(pk=id).first()
     task = models.barangm.objects.filter(usaha=id)
-    form_input = forms.pem_lainf(usaha=id)
+    form_input = forms.pem_lainf()
     if req.POST:
         form_input = forms.pem_lainf(req.POST)
         if form_input.is_valid():
@@ -976,6 +983,16 @@ def edit_saldoawal(req, id, id_p):
     penjualan = models.penjualan1m.objects.filter(pk=id).first()
     return render(req, 'keperluan/edit_saldo.html', {
         'data': penjualan,
+    })
+
+def edit_usaha(req, id):
+    if req.POST:
+        models.usaha.objects.filter(pk=id).update(nama_usaha=req.POST['nama_usaha'], alamat_usaha=req.POST['alamat_usaha'], jenis_usaha=req.POST['jenis_usaha'])
+        return redirect('/usaha')
+
+    ush = models.usaha.objects.filter(pk=id).first()
+    return render(req, 'keperluan/edit_usaha.html', {
+        'data': ush,
     })
 
 

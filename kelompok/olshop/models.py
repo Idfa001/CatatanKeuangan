@@ -159,7 +159,7 @@ class pem_tunaim(models.Model):
 class pem_kreditm(models.Model):
     usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='pemkredit')
     tanggal = models.DateField(auto_now_add=True)
-    barang = models.ForeignKey(barangm, on_delete = models.CASCADE)
+    barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
     kas_keluar = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     dibayar1 = models.DecimalField(default=0, max_digits=10, decimal_places=0)

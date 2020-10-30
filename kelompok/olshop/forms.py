@@ -49,6 +49,11 @@ class pem_kreditf(ModelForm):
         model = models.pem_kreditm
         exclude = [ 'dibayar1', 'usaha' ]
 
+    def __init__(self, *args, **kwargs):
+        usaha = kwargs.pop('usaha', None)
+        super(pem_kreditf, self).__init__(*args, **kwargs)
+        self.fields['barang'].queryset = models.barangm.objects.filter(usaha=usaha)
+
 
 class barangf(ModelForm):
     class Meta:

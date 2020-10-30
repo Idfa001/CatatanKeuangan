@@ -79,18 +79,6 @@
 						{% csrf_token %}
 						<div class="input-group mb-3">
 							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-							</div>
-							{{form.first_name}}
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-map"></i></span>
-							</div>
-							{{form.last_name}}
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-phone"></i></span>
 							</div>
 							{{form.username}}
@@ -140,12 +128,10 @@
 
 		//Query All input fields
 		var form_fields = document.getElementsByTagName('input')
-		form_fields[1].placeholder='Nama Usaha';
-		form_fields[2].placeholder='Alamat';
-		form_fields[3].placeholder='Nomor Telepon';
-		form_fields[4].placeholder='E-mail';
-		form_fields[5].placeholder='Buat Password';
-		form_fields[6].placeholder='Masukkan Lagi Password';
+		form_fields[1].placeholder='Nomor Telepon';
+		form_fields[2].placeholder='E-mail';
+		form_fields[3].placeholder='Buat Password';
+		form_fields[4].placeholder='Masukkan Lagi Password';
 
 		for (var field in form_fields){	
 			form_fields[field].className += ' form-control'
