@@ -41,7 +41,7 @@ class penjualan1m(models.Model):
     usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='penjualan')
     tanggal = models.DateField(auto_now_add=True)
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
-    kuantitas = models.IntegerField(default=0)
+    kuantitas = models.IntegerField(default=1)
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     kas_masuk = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
@@ -64,7 +64,7 @@ class penjualan1m(models.Model):
 
     def saldo(self):
         return self.piutang() - self.terima
-
+ 
 
 class utangm(models.Model):
     usaha = models.ForeignKey(usaha, on_delete = models.DO_NOTHING,related_name='utang')
