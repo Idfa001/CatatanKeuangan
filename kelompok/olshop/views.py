@@ -3,6 +3,8 @@ from django.db.models import Sum
 from bootstrap_datepicker_plus import DatePickerInput
 from . import models, forms
 from account.forms import CreateUserForm
+from datetime import timedelta
+from django.utils.timezone import now
 
 def usaha(req):
 
@@ -15,6 +17,25 @@ def usaha(req):
     return render(req, 'crud/usaha1.html', {
     'data': ush,
     })
+
+def notif_r(req, id):
+    ush = models.usaha.objects.filter(pk=id).first()
+
+    today = now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=10)
+	
+    notif = models.penjualan1m.objects.filter(
+        usaha=ush,
+        jatuh_tempo__gte=today,
+        jatuh_tempo__lt=tomorrow,
+    )
+
+    notifnew = []
+    for p in notif:
+        if p.saldo() > 0:
+            notifnew.append(p)
+    
+    return notifnew
 
 def halamandepan(req, id):
 
@@ -265,7 +286,7 @@ def halamandepan(req, id):
     for p in saldo_awal1:
         saldo1 += p.saldo_awal
 
-    c = kas_masuk1 + kas_masuk2 + kas_masuk3
+    c = kas_masuk1 + kas_masuk2 + kas_masuk3 + saldo1
     d = kas_keluar1 + kas_keluar2
     e = kas_masuk4 - kas_keluar3
 
@@ -274,9 +295,9 @@ def halamandepan(req, id):
     #usaha
     ush = models.usaha.objects.filter(pk=id).first()
     ush1 = models.usaha.objects.filter(owner=req.user)
-    
 
-    print (usaha)
+    due = notif_r(req, id)
+    
 
     return render(req, 'hal1/index1.html', {
     'id': id,
@@ -299,6 +320,7 @@ def halamandepan(req, id):
     'maks_keluar': maks_keluar,
     'data': ush1,
     'usaha': ush,
+    'due': due,
     })
 
 def penjualan_tunai(req, id):  
@@ -358,6 +380,11 @@ def piutang(req, id):
     penjualan1 = models.penjualan1m.objects.filter(usaha=id)
     penjualan2 = models.pend_lainm.objects.filter(usaha=id)
 
+    penjualan1new = []
+    for p in penjualan1:
+        if p.saldo() > 0:
+            penjualan1new.append(p)
+
     total_saldo1 = 0
     total_terima1 = 0   
 
@@ -377,7 +404,7 @@ def piutang(req, id):
     return render(req, 'uangmasuk/index6.html', {
         'id': id,
         'data2': pend,
-        'data' :penjualan1,
+        'data' :penjualan1new,
         'data1' :penjualan2,
         'saldo_total1': saldo_total1,
         'saldo_total2': saldo_total2,
@@ -648,10 +675,6 @@ def lr(req, id):
     })
 
 
-
-
-
-
 #crud
 
 def penjualan1v(req, id):
@@ -780,6 +803,29 @@ def usahav(req):
         'form': form_input,
     })
 
+#bayar
+def penjualan1bayar(req, id):
+    usaha = models.usaha.objects.filter(pk=id).first()
+    if req.POST:
+        models.penjualan1m.objects.filter(pk=id_p).update(kuantitas=req.POST['kuantitas'], kas_masuk=req.POST['kas_masuk'])
+        return redirect(f'/usaha/penjualan1bayar/{id}')
+    penjualan = models.penjualan1m.objects.filter(pk=id).first()
+    return render(req, 'crud/penjualan1bayar.html', {
+        'id': id,
+        'data': penjualan,
+    })
+
+# def penjualan1bayar(req, id, id_p):
+#     if req.POST:
+#         models.penjualan1m.objects.filter(pk=id_p).update(kuantitas=req.POST['kuantitas'], kas_masuk=req.POST['kas_masuk'])
+#         return redirect(f'/usaha/penjualan_tunai/{id}')
+#     penjualan1 = models.penjualan1m.objects.all()    
+#     penjualan1 = penjualan1.filter(usaha=id)
+#     # penjualan = models.penjualan1m.objects.filter(pk=id_p).first()
+#     return render(req, 'crud/penjualan1bayar.html', {
+#         'id': id,
+#         'data': penjualan1,
+#     })
 
  
 
@@ -1670,3 +1716,106 @@ def wia100(req, id):
     'jumlah2': jumlah2,
     'total': total,
     })
+
+#lrk
+def lrk(req, id):
+    usaha = models.usaha.objects.filter(pk=id).first()
+    saldo_awal = models.SaldoAwal.objects.all()
+    sawal = 0
+    for q in saldo_awal:
+      sawal += q.sawal()
+    print(sawal)
+
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1()
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend()
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = total_terima1 + total_terima2
+
+    utang = models.utangm.objects.all()
+
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang()
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1()
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2()
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = bayar11 + bayar22 + bayar33
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+
+    saldo = sawal + total
+       
+    return render(req, 'keperluan/lrk.html', {
+    'id': id,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    'sawal': sawal,
+    'saldo': saldo,
+    })
+
+

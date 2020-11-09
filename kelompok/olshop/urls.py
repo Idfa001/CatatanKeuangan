@@ -38,6 +38,9 @@ urlpatterns = [
     path('usaha/wia75/<id>/', views.wia75),
     path('usaha/wia100/<id>/', views.wia100),
 
+    #lrk
+    path('usaha/lrk/<id>/', views.lrk),
+
     #crud
     path('usaha/penjualan1/<id>/', views.penjualan1v),
     path('usaha/utangv/<id>/', views.utangv),
@@ -47,8 +50,6 @@ urlpatterns = [
     path('usaha/pem_lainv/<id>/', views.pem_lainv),
     path('usaha/barangv/<id>/', views.barangv),
     path('usahav/', views.usahav),
-
-
 
     #edit
     path('<id>/edit_usaha',views.edit_usaha),
@@ -88,4 +89,9 @@ urlpatterns = [
     path('<id>/hapus12/',views.hapus12),
     # path('<id>/edit_pembayaran_lain/',views.edit_pembayaran_lain),
     # path('<id>/edit_barang/',views.edit_barang),
+
+
+    #bayar
+    path('usaha/penjualan1bayar/<id>/', views.penjualan1bayar),
+
 ]
