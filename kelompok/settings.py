@@ -25,7 +25,9 @@ SECRET_KEY = 'z=m62*e=+5siwjj2#kt^w-lu0htv*1shm0d)wl7+u^%!t(%z^-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'mamoney-dev.herokuapp.com',
+]
 
 
 # Application definition
