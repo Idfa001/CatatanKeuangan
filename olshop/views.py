@@ -75,6 +75,44 @@ def notif_r2(req, id):
     
     return notifnew
 
+def notif_r3(req, id):
+    ush = models.usaha.objects.filter(pk=id).first()
+
+    today = now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=10) #9 hari sebelumnya ngirim notif
+	
+    notif = models.pem_tunaim.objects.filter(
+        usaha=ush,
+        jatuh_tempo__gte=today,
+        jatuh_tempo__lt=tomorrow,
+    )
+
+    notifnew = []
+    for p in notif:
+        if p.saldo() > 0:
+            notifnew.append(p)
+    
+    return notifnew
+
+def notif_r4(req, id):
+    ush = models.usaha.objects.filter(pk=id).first()
+
+    today = now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=10) #9 hari sebelumnya ngirim notif
+	
+    notif = models.pem_kreditm.objects.filter(
+        usaha=ush,
+        jatuh_tempo__gte=today,
+        jatuh_tempo__lt=tomorrow,
+    )
+
+    notifnew = []
+    for p in notif:
+        if p.saldo1() > 0:
+            notifnew.append(p)
+    
+    return notifnew    
+
 
 def halamandepan(req, id):
 
@@ -338,7 +376,9 @@ def halamandepan(req, id):
     due = notif_r(req, id)
     due1 = notif_r1(req, id)
     due2 = notif_r2(req, id)
-    total_due = len(due) + len(due1) + len(due2)
+    due3 = notif_r3(req, id)
+    due4 = notif_r4(req, id)
+    total_due = len(due) + len(due1) + len(due2) + len(due3) + len(due4)
     
 
     return render(req, 'hal1/index1.html', {
@@ -365,6 +405,8 @@ def halamandepan(req, id):
     'due': due,
     'due1': due1,
     'due2': due2,
+    'due3': due3,
+    'due4': due4,
     'total_due': total_due,
     })
 
@@ -940,9 +982,10 @@ def edit_p_kredit_terima1(req, id, id_p):
         models.penjualan3m.objects.filter(pk=id_p).update(terima=req.POST['terima'])
         return redirect(f'/usaha/piutang/{id}')
 
-    penjualan = models.penjualan3m.objects.filter(pk=id).first()
+    penjualan = models.penjualan3m.objects.filter(pk=id_p).first()
     return render(req, 'uangmasuk/edit_piutang1.html', {
-        'data1': penjualan,
+        'd': penjualan,
+        'id': id,
     })
 
 def edit_pend_lain_terima(req, id, id_p): 
@@ -950,9 +993,10 @@ def edit_pend_lain_terima(req, id, id_p):
         models.pend_lainm.objects.filter(pk=id_p).update(terima=req.POST['terima'])
         return redirect(f'/usaha/piutang/{id}')
 
-    penjualan = models.pend_lainm.objects.filter(pk=id).first()
-    return render(req, 'uangmasuk/edit_terimalain.html', {
-        'data2': penjualan,
+    penjualan = models.pend_lainm.objects.filter(pk=id_p).first()
+    return render(req, 'uangmasuk/edit_piutang1.html', {
+        'd': penjualan,
+        'id': id,
     })
 
 def edit_butang(req, id, id_p):
