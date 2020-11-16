@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'kelompok.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tugas2',
-        'USER': 'steiner',
-        'PASSWORD': 'madscientist',
-        'HOST': 'localhost',
+        'NAME': 'd8qgnossvn2hh1',
+        'USER': 'yuewgyotutedpn',
+        'PASSWORD': '4075f328644a064f4032ba6ddbf720794298457fe31f5d63079f2d680a676190',
+        'HOST': 'ec2-34-204-121-199.compute-1.amazonaws.com',
     }
 }
 
