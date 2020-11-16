@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
+
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,6 +27,7 @@ SECRET_KEY = 'z=m62*e=+5siwjj2#kt^w-lu0htv*1shm0d)wl7+u^%!t(%z^-'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'mamoney-dev.herokuapp.com',
 ]
 
 
