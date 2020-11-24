@@ -10,7 +10,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CK - Penjualan Tunai</title>
+  <title>CeKa id - What if analysis</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -60,11 +61,11 @@ tr:nth-child(even){background-color: #f2f2f2}
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CATATAN KEUANGAN</div>
+        <div class="sidebar-brand-text mx-3">Ceka id</div>
       </a>
 
       <!-- Divider -->
@@ -72,7 +73,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="/usaha/haldepan/{{id}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -88,9 +89,9 @@ tr:nth-child(even){background-color: #f2f2f2}
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/penjualan_tunai">Penjualan</a>
-            <a class="collapse-item" href="/piutang">Piutang</a>
-            <a class="collapse-item" href="/utang">Utang</a>
+            <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
+            <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
       </li>
@@ -103,8 +104,8 @@ tr:nth-child(even){background-color: #f2f2f2}
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/pembelian_tunai">Pembelian</a>
-            <a class="collapse-item" href="/pembayaran_utang">Pembayaran Utang</a>
+            <a class="collapse-item" href="/usaha/pembelian_tunai/{{id}}">Pembelian</a>
+            <a class="collapse-item" href="/usaha/pembayaran_utang/{{id}}">Pembayaran Utang</a>
           </div>
         </div>
       </li>
@@ -116,13 +117,13 @@ tr:nth-child(even){background-color: #f2f2f2}
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/lr">Arus Kas</a>
-            <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
-            <a class="collapse-item" href="/barang">Daftar Barang Dijual</a>
-            <a class="collapse-item" href="utilities-other.html">Satuan Unit</a>
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
+            <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
+            <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
+            <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
           </div>
         </div>
-      </li>
       <!-- Divider -->
 
       <!-- Heading -->
@@ -144,71 +145,15 @@ tr:nth-child(even){background-color: #f2f2f2}
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+          
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pengguna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profil
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Pengaturan
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Aktivitas
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Keluar
-                </a>
-              </div>
-            </li>
+          <ul class="nav navbar-nav navbar-center" >
+            <div>
+              <h4>WHAT IF ANALYSIS</h4>      
+            </div>
 
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 
@@ -244,38 +189,38 @@ tr:nth-child(even){background-color: #f2f2f2}
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col" style="color: black;">Barang</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk1}}</div>
+            <div class="col-lg-5 col-md-5 col" style="color: black;">Barang</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk1}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col" style="color: black;">Jasa</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk2}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col" style="color: black;"><b>Penerimaan Piutang</b></div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk3}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col" style="color: black;"><b>Utang</b></div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk4}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
 
-
-          </div>
-        </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col" style="color: black;">Jasa</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk2}}</div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Piutang</b></div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk3}}</div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Utang</b></div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk4}}</div>
-          </div>
-        </li>
-
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-lg-6 col-md-2 col"></div>
-            <div class="col-lg-3 col-md-9 col" style="color: black;">Jumlah</div>
-            <div class="col-lg-3 col-md-9 col">Rp {{jumlah1}}</div>
+            <div class="col-lg-5 col-md-5 col"></div>
+            <div class="col-lg-4 col-md-4 col" style="color: black;">Jumlah</div>
+            <div class="col-lg-3 col-md-3 col">Rp {{jumlah1}}</div>
           </div>
         </li>
       
@@ -293,39 +238,39 @@ tr:nth-child(even){background-color: #f2f2f2}
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col"  style="color: black;">Umum</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar1}}</div>
-
+            <div class="col-lg-5 col-md-5 col"  style="color: black;">Umum</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_keluar1}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
 
           </div>
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col" style="color: black;">Barang</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar2}}</div>
+            <div class="col-lg-5 col-md-5 col" style="color: black;">Barang</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_keluar2}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Pembayaran Utang</b></div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar3}}</div>
+            <div class="col-lg-5 col-md-5 col" style="color: black;"><b>Pembayaran Utang</b></div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_keluar3}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
           </div>
         </li>
 
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-6 col-md-2 col"></div>
-            <div class="col-lg-3 col-md-9 col" style="color: black;">Jumlah</div>
-            <div class="col-lg-3 col-md-9 col">Rp {{jumlah2}}</div>
+            <div class="col-lg-5 col-md-5 col"></div>
+            <div class="col-lg-4 col-md-4 col" style="color: black;">Jumlah</div>
+            <div class="col-lg-3 col-md-3 col">Rp {{jumlah2}}</div>
           </div>
         </li>
         <li class="list-group-item"  style="background:rgb(255, 68, 0); color: rgb(255, 255, 255);">
           <div class="row">
-            <div class="col-lg-6 col-md-2 col"><b>KAS</b></div>
-            <div class="col-lg-3 col-md-9 col"></div>
-            <div class="col-lg-3 col-md-9 col">Rp {{total}}</div>
+            <div class="col-lg-5 col-md-5 col"><b>KAS</b></div>
+            <div class="col-lg-4 col-md-4 col"></div>
+            <div class="col-lg-3 col-md-3 col">Rp {{total}}</div>
           </div>
         </li>
       </div>

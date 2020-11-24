@@ -10,7 +10,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CK - Penjualan Tunai</title>
+  <title>CeKa id - WIA up to 25%</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -71,38 +72,38 @@ tr:nth-child(even){background-color: #f2f2f2}
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col" style="color: black;">Barang</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk1}}</div>
+            <div class="col-lg-5 col-md-5 col" style="color: black;">Barang</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk1}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col" style="color: black;">Jasa</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk2}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col" style="color: black;"><b>Penerimaan Piutang</b></div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk3}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col" style="color: black;"><b>Utang</b></div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_masuk4}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
+          </div>
+        </li>
 
-
-          </div>
-        </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col" style="color: black;">Jasa</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk2}}</div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Piutang</b></div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk3}}</div>
-          </div>
-        </li>
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Utang</b></div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk4}}</div>
-          </div>
-        </li>
-
-        <li class="list-group-item">
-          <div class="row">
-            <div class="col-lg-6 col-md-2 col"></div>
-            <div class="col-lg-3 col-md-9 col" style="color: black;">Jumlah</div>
-            <div class="col-lg-3 col-md-9 col">Rp {{jumlah1}}</div>
+            <div class="col-lg-5 col-md-5 col"></div>
+            <div class="col-lg-4 col-md-4 col" style="color: black;">Jumlah</div>
+            <div class="col-lg-3 col-md-3 col">Rp {{jumlah1}}</div>
           </div>
         </li>
       
@@ -120,39 +121,38 @@ tr:nth-child(even){background-color: #f2f2f2}
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col"  style="color: black;">Umum</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar1}}</div>
-
-
+            <div class="col-lg-5 col-md-5 col"  style="color: black;">Umum</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_keluar1}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-1 col-md-2 col"></div>
-            <div class="col-lg-5 col-md-9 col" style="color: black;">Barang</div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar2}}</div>
+            <div class="col-lg-5 col-md-5 col" style="color: black;">Barang</div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_keluar2}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
           </div>
         </li>
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Pembayaran Utang</b></div>
-            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar3}}</div>
+            <div class="col-lg-5 col-md-5 col" style="color: black;"><b>Pembayaran Utang</b></div>
+            <div class="col-lg-5 col-md-5 col">Rp {{kas_keluar3}}</div>
+            <div class="col-lg-2 col-md-2 col"></div>
           </div>
         </li>
 
         <li class="list-group-item">
           <div class="row">
-            <div class="col-lg-6 col-md-2 col"></div>
-            <div class="col-lg-3 col-md-9 col" style="color: black;">Jumlah</div>
-            <div class="col-lg-3 col-md-9 col">Rp {{jumlah2}}</div>
+            <div class="col-lg-5 col-md-5 col"></div>
+            <div class="col-lg-4 col-md-4 col" style="color: black;">Jumlah</div>
+            <div class="col-lg-3 col-md-3 col">Rp {{jumlah2}}</div>
           </div>
         </li>
         <li class="list-group-item"  style="background:rgb(255, 68, 0); color: rgb(255, 255, 255);">
           <div class="row">
-            <div class="col-lg-6 col-md-2 col"><b>KAS</b></div>
-            <div class="col-lg-3 col-md-9 col"></div>
-            <div class="col-lg-3 col-md-9 col">Rp {{total}}</div>
+            <div class="col-lg-5 col-md-5 col"><b>KAS</b></div>
+            <div class="col-lg-4 col-md-4 col"></div>
+            <div class="col-lg-3 col-md-3 col">Rp {{total}}</div>
           </div>
         </li>
       </div>

@@ -10,8 +10,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CATATAN KEUANGAN</title>
-  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+  <title>CeKa id - Dashboard</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
   
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,12 +34,6 @@
 
       <!-- Sidebar - Brand -->
 
-      <!-- <a class="nav-link collapsed d-flex align-items-center justify-content-center" href="#" data-target="#usaha" aria-expanded="true" aria-controls="usaha">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-industry"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">{{ user.first_name }}</div>
-      </a> -->
       <hr class="sidebar-divider">
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -81,7 +75,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
-            <a class="collapse-item" href="/usaha/piutang/{{id}}">Piutang</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
             <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
@@ -108,24 +102,13 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
             <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
             <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
             <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
-            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
           </div>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusaha" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="far fa-handshake"></i>
-          <span>Usaha Saya</span>
-        </a>
-          <div id="collapseusaha" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/usaha">Usaha</a>
-            </div>
-          </div>
-      </li>
       <!-- Divider -->
 
       <!-- Heading -->
@@ -167,77 +150,77 @@
               </a>
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="/usaha/notif/{{id}}" >
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Messages -->
                 <span class="badge badge-danger badge-counter">{{total_due}}</span>
               </a>
               <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in overflow-auto" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                   Notifikasi
                 </h6>
                 {% for n in due %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_p_kredit_terima/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: rgb(51, 161, 51);">Piutang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo}}</div>
+                    <div class="small text-gray-500">PjB - {{n.id}} Jumlah {{n.saldo}}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due1 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_pend_lain_terima/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: rgb(51, 161, 51);">Piutang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo }}</div>
+                    <div class="small text-gray-500">PjJ - {{n.id}} Jumlah {{n.saldo }}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due2 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_butang/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: orange;">Utang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo}}</div>
+                    <div class="small text-gray-500">Utg - {{n.id}} Jumlah {{n.saldo}}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due3 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_butang3/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: orange;">Utang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo}}</div>
+                    <div class="small text-gray-500">PbU - {{n.id}} Jumlah {{n.saldo}}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due4 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_butang1/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: orange;">Utang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo1}}</div>
+                    <div class="small text-gray-500">PbB - {{n.id}} Jumlah {{n.saldo1}}</div>
                   </div>
                 </a>
                 {% endfor %}
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a> -->
               </div>
             </li>
 
@@ -256,7 +239,7 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <!-- <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profil
                 </a>
@@ -268,7 +251,7 @@
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Aktivitas
                 </a>
-                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div> -->
                 <a class="dropdown-item" href="/account/logout">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Keluar
@@ -286,7 +269,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Rasio kecukupan arus kas: {{rasio}} %</h1>
+            <h1 class="h3 mb-0 text-gray-800">Rasio kas: {{rasio}} %</h1>
           </div>
           <!-- Content Row -->
           <div class="row">
@@ -301,7 +284,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{jumlah1}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -324,7 +307,7 @@
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -338,10 +321,10 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Piutang</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{saldo_total1}}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{saldo_total3}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -360,7 +343,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{jumlah10}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="far fa-credit-card fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -439,7 +422,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Catatan Keuangan V.01</span>
+            <span>Copyright &copy; CeKa id</span>
           </div>
         </div>
       </footer>

@@ -1,52 +1,215 @@
+
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+
 <head>
-    <title>The Materialize Example</title>
-    <meta name = "viewport" content = "width = device-width, initial-scale = 1">    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css">
-    <link rel = "stylesheet"
-       href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel = "stylesheet"
-       href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-    <script type = "text/javascript"
-       src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
-    </script> 
-</head>
-<body>
 
-  <div class="container">
-    <h1>Customer</h1><br>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <form action="/usaha/{{id}}/edit_pem_tunai/{{d.id}}" method="POST" class="mt-3">
-                                       
-      {% csrf_token %}
+  <title>CeKa id - Pembelian</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  
+  <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/table.css' %}" rel="stylesheet">
+  <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
+  <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="  https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Ceka id</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/usaha/haldepan/{{id}}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Uang Masuk</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
+            <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Uang Keluar</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/usaha/pembelian_tunai/{{id}}">Pembelian</a>
+            <a class="collapse-item" href="/usaha/pembayaran_utang/{{id}}">Pembayaran Utang</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsekeperluan" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="far fa-handshake"></i>
+          <span>Keperluan</span>
+        </a>
+        <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
+            <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
+            <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
+            <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
+          </div>
+        </div>
+      <!-- Divider -->
+
+      <!-- Heading -->
       
-      <table class="table mt-3">
-          <tr>
-            <td>ID</td>
-            <td>{{d.id}}</td>
-          </tr>
-          <tr> 
-            <td>Tanggal Transaksi</td>
-            <td>{{d.tanggal}}</td>
-          </tr>
-            <tr>
-                <td>Keterangan</td>
-                <td>
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          
+
+          <!-- Topbar Navbar -->
+          <ul class="nav navbar-nav navbar-center" >
+            <div>
+              <h4>PEMBELIAN UMUM</h4>      
+            </div>
+
+          </ul>
+        </nav>
+          <div class="container">
+          <div class="container">
+            <h1 style="text-align: center;">Edit transaksi</h1>
+            
+        
+            <form action="/usaha/{{id}}/edit_pem_tunai/{{d.id}}" method="POST" class="mt-3">
+                                       
+              {% csrf_token %}
+              ID
+              <div >
+                <input value="PbU - {{d.id}}" class="form-control" disabled>
+              </div>
+              <br>
+              Tanggal transaksi
+              <div >
+                <input value="{{d.tanggal}}" class="form-control" disabled>
+              </div>
+              <br>
+              Keterangan
+              <div >
                 <input type="text" name="keterangan" value="{{d.keterangan}}" class="form-control">
-                </td>
-            </tr>
-            <tr>
-              <td>Kas Keluar</td>
-              <td>
-              <input type="number" name="kas_keluar" value="{{d.kas_keluar}}" class="form-control">
-              </td>
-          </tr>
-          </table>
-      <br>
-      <button class="btn btn-primary btn-xs">Update</button>
-    </form>
-    </div>
-  </body>
+              </div>
+              <br>
+              Pembelian
+              <div >
+                <input type="number" name="pembelian" value="{{d.pembelian}}" id="tampil-beli" class="form-control">
+              </div>
+              <br>
+              Jatuh tempo
+              <div >
+                <input type="date" name="jatuh_tempo" value="{{d.jatuh_tempo}}" class="form-control">
+              </div>
+              <br>
+              Kas keluar
+              <div >
+                <input type="number" name="kas_keluar" value="{{d.kas_keluar}}" id="tampil-keluar" class="form-control">
+              </div>
+              <br>
+              
+              
+              <button class="btn btn-primary btn-xs">Perbarui</button>
+            </form>
+         <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js">
+         </script>
+         <script>
+          var jumlah = "{{d.pembelian}}"
+          const beli = jumlah.replace(".", "")
+          $('#tampil-beli').val(beli);
+
+          var jumlah1 = "{{d.kas_keluar}}"
+          const keluar = jumlah1.replace(".", "")
+          $('#tampil-keluar').val(keluar);
+       </script>
+       
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+</body>
+
 </html>
+
+
+    

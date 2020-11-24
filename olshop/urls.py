@@ -40,6 +40,7 @@ urlpatterns = [
 
     #lrk
     path('usaha/lrk/<id>/', views.lrk),
+    path('usaha/notif/<id>/', views.indexnotif),
 
     #crud
     path('usaha/penjualan1/<id>/', views.penjualan1v),
@@ -54,6 +55,7 @@ urlpatterns = [
     #edit
     path('<id>/edit_usaha',views.edit_usaha),
     path('usaha/<id>/edit_p_tunai/<id_p>',views.edit_p_tunai),
+    path('usaha/<id>/edit_pend_lain/<id_p>',views.edit_pend_lain),
     path('usaha/<id>/edit_p_kredit/<id_p>',views.edit_p_kredit),
     path('usaha/<id>/edit_p_kredit_terima/<id_p>',views.edit_p_kredit_terima), #terima pembayaran
     path('usaha/<id>/edit_p_kredit_terima1/<id_p>',views.edit_p_kredit_terima1), #terima pembayaran1
@@ -63,9 +65,9 @@ urlpatterns = [
     path('usaha/<id>/edit_pend_lain/<id_p>',views.edit_pend_lain),
     path('usaha/<id>/edit_pem_tunai/<id_p>',views.edit_pem_tunai),
     path('usaha/<id>/edit_pem_kredit/<id_p>',views.edit_pem_kredit),
-    path('usaha/<id>/edit_pem_lain/<id_p>',views.edit_pem_lain),
-    path('usaha/<id>/edit_pembayaran_biaya/<id_p>',views.edit_pembayaran_biaya),
-    path('usaha/<id>/edit_pembayaran_lain/<id_p>',views.edit_pembayaran_lain),
+    # path('usaha/<id>/edit_pem_lain/<id_p>',views.edit_pem_lain),
+    # path('usaha/<id>/edit_pembayaran_biaya/<id_p>',views.edit_pembayaran_biaya),
+    # path('usaha/<id>/edit_pembayaran_lain/<id_p>',views.edit_pembayaran_lain),
     path('usaha/<id>/edit_barang/<id_p>',views.edit_barang),
     path('usaha/<id>/edit_butang/<id_p>',views.edit_butang),
     path('usaha/<id>/edit_butang1/<id_p>',views.edit_butang1),

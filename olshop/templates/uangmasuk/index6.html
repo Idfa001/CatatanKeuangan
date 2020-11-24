@@ -10,7 +10,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CK - Penjualan Tunai</title>
+  <title>CeKa id - Penerimaan piutang</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,11 +36,11 @@
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CATATAN KEUANGAN</div>
+        <div class="sidebar-brand-text mx-3">Ceka id</div>
       </a>
 
       <!-- Divider -->
@@ -64,7 +65,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
-            <a class="collapse-item" href="/usaha/piutang/{{id}}">Piutang</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
             <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
@@ -91,23 +92,13 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/usaha/lr/{{id}}">Arus Kas</a>
-            <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
-            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
+            <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
+            <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
+            <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
           </div>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusaha" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="far fa-handshake"></i>
-          <span>Usaha Saya</span>
-        </a>
-          <div id="collapseusaha" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/usaha">Usaha</a>
-            </div>
-          </div>
-      </li>
       <!-- Divider -->
 
       <!-- Heading -->
@@ -130,7 +121,7 @@
           </button>
           <ul class="nav navbar-nav navbar-center" >
             <div>
-              <h4>PIUTANG</h4>      
+              <h4>PENERIMAAN PIUTANG</h4>      
             </div>
 
           </ul>
@@ -184,7 +175,7 @@
                   <li class="list-group-item">
                     <div class="row">
                       <div class="col-lg-3 col-md-3 col">ID</div>
-                      <div class="col-lg-9 col-md-9 col">: Brg-{{d.id}}</div>
+                      <div class="col-lg-9 col-md-9 col">: PjB - {{d.id}}</div>
                     </div>
                   </li>
                   <li class="list-group-item">
@@ -199,11 +190,16 @@
                       <div class="col-lg-9 col-md-9 col">: Rp {{d.piutang}}</div>
                     </div>
                   </li>
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3 col">Jatuh tempo</div>
+                      <div class="col-lg-9 col-md-9 col">: {{d.jatuh_tempo}}</div>
+                    </div>
+                  </li>
                   <li class="center list-group-item">
                     <div class="row">
                       <div class="col-lg-1 col-md-2 col">
-                        <a class="btn btn-outline-success" href="/usaha/{{id}}/edit_p_kredit_terima/{{d.id}}">Terima</a>                    
-                        </div>
+                        <a class="btn btn-outline-success" href="/usaha/{{id}}/edit_p_kredit_terima/{{d.id}}">Terima</a>
                       </div>
                     </div>
                     <!-- Primary raised circle button with ripple effect -->
@@ -243,7 +239,7 @@
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col">ID</div>
-                    <div class="col-lg-9 col-md-9 col">: Jsa-{{d.id}}</div>
+                    <div class="col-lg-9 col-md-9 col">: PjJ - {{d.id}}</div>
                   </div>
                 </li>
                 <li class="list-group-item">
@@ -258,32 +254,17 @@
                     <div class="col-lg-9 col-md-9 col">: Rp {{d.piutang1}}</div>
                   </div>
                 </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col">Jatuh tempo</div>
+                    <div class="col-lg-9 col-md-9 col">: {{d.jatuh_tempo}}</div>
+                  </div>
+                </li>
                 <li class="center list-group-item">
                   <div class="row">
                     <div class="col-lg-1 col-md-2 col">
                       <a class="btn btn-outline-success" href="/usaha/{{id}}/edit_pend_lain_terima/{{d.id}}" >Terima</a>
-                      <div class="container">
-                        <!-- Modal -->
-                        <div class="modal fade" id="editModal{{d.id}}" role="dialog">
-                          <div class="modal-dialog">
-                          
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title">Edit Pendapatan</h4>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-
-                              </div>
-                              <div class="modal-body">
-                                
-                        
-                              </div>
-                              <div class="modal-footer">
-                              </div>
-                            </div>                          
-                          </div>
-                        </div>                      
-                      </div>
+                      
                     </div>
                   </div>
                   <!-- Primary raised circle button with ripple effect -->
